@@ -1,0 +1,9 @@
+# Generated data files #
+########################
+*.npz
+
+
+# Generated models
+##################
+*.pt
+
