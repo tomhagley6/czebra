@@ -1,4 +1,4 @@
-# Test SPIM Data CEBRA Model
+## Test SPIM data CEBRA model
 
 - Use CEBRA time contrastive learning on neural data from one fish
     - design model
