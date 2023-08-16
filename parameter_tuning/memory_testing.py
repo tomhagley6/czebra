@@ -60,6 +60,7 @@ output = open(filename_output, 'w')
 sys.stdout = output
 
 ## main loop ##
+
 # Incremented timesteps, constant ROIs
 while True:
     try:
