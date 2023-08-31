@@ -23,3 +23,11 @@
     ITERS = 2000
     STIMS = ['left_spot', 'right_spot']
     TRAINING_TEST_SPLIT = 0.7
+
+
+- comments:
+for second-half-stims, two different folders were created depending on 'delta-time' or 'delta_time'.
+See image files in time_delta and time-delta folders in f1_221103_spot-label_second-half-stims_10000rois_2000iters_128hidden_0.001L2_0.8train
+These will tell you which model versions belonged to which 'conditional' string
+(1,4,5 for 'time-delta', 2,3 for 'time_delta')
+

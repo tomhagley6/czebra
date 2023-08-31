@@ -22,3 +22,12 @@
     - "hypothesis test" with also providing whether fish responded and whether fish were swimming during presentation
     - compute InfoNCE loss to see which may provide best embeddings
     - again, see if these can be used to decode stimulus type
+
+
+
+
+
+    ### Notes on data
+    Fish data comes from a single dataset, defined in each notebook as "dat_files"
+    A subset of this data (at least in ROI dimension) may be used for model training
+    These subsets are saved on HDD under my DATA folder, for each week of model training
