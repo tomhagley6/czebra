@@ -1,4 +1,4 @@
-230822:
+230828:
  - Default model values:
 (all parameters are CEBRA defaults unless specified)
     model_architecture='offset10-model',
@@ -26,10 +26,9 @@
 
 
 - comments:
-for second-half-stims, two different folders were created depending on 'delta-time' or 'delta_time'.
-See image files in time_delta and time-delta folders in f1_221103_spot-label_second-half-stims_10000rois_2000iters_128hidden_0.001L2_0.8train
-These will tell you which model versions belonged to which 'conditional' string
-(1,4,5 for 'time-delta', 2,3 for 'time_delta')
-Add.: Although this looked like it produced different results, trying to repeat a few days later didn't seem to keep the trend.
-I'll ignore this for now but it should be checked when I've fixed the random seed
+As labelled, data is now using deconvolved calcium (inferred spikes), obtained by running OASIS (Friedrich et al., 2017)
+ on the df/f data (thresholded variant with a first-order autoregressive model (AR(1)) 
+ and an automatically-estimated transient decay time constant for each ROI.)
+
+ From this week, also saving ROI indexes for neural data subsets
 
