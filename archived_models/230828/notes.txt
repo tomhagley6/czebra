@@ -30,5 +30,11 @@ As labelled, data is now using deconvolved calcium (inferred spikes), obtained b
  on the df/f data (thresholded variant with a first-order autoregressive model (AR(1)) 
  and an automatically-estimated transient decay time constant for each ROI.)
 
- From this week, also saving ROI indexes for neural data subsets
+ From this week, also saving ROI indexes for neural data subsets. 
+
+ f1_221103_spot-label_second-half-stims_deconv_10000rois_2000iters_128hidden_0.001L2_0.8train:
+ This is deconvolved, second_half_stim, and additionally had predict-on-train run. New f1-scoring
+
+ f1_221103_spot-label_second-half-stims_deconv_tectal_10000rois_2000iters_128hidden_0.001L2_0.8train:
+ This is as above but with ONLY tectal neurons (majority, a random 10000)
 
