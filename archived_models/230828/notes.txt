@@ -38,3 +38,5 @@ As labelled, data is now using deconvolved calcium (inferred spikes), obtained b
  f1_221103_spot-label_second-half-stims_deconv_tectal_10000rois_2000iters_128hidden_0.001L2_0.8train:
  This is as above but with ONLY tectal neurons (majority, a random 10000)
 
+ f1_221103_time_second-half-stims_deconv_tectal_10000rois_2000iters_128hidden_0.001L2_0.8train:
+ Quick time-contrastive model with embedding labels by time 
