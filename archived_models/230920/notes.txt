@@ -1,0 +1,10 @@
+
+
+
+
+This is the one that had perfect (seemingly not trial time) predictions disc + cont.
+Check this.
+archived_models/230911/f1_221103_spot-label_second-half-stims_deconv_discrete-and-cont_control-seed_10000rois_2000iters_128hidden_0.001L2_0.8train
+- version 1 is from last week, and successive versions are from this week.
+- 2 and 3 are identical input showing identical results.
+- 4 is identical input, but without using the continuous variable in training.
