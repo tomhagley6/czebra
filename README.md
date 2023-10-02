@@ -2,8 +2,8 @@
 Project folder for CEBRA modelling
 
 ## Set up
-Package dependencies are contained in the environment.yml file<br><\br>
-Use prefix: /Users/username/anaconda3/envs/env-name<br><\br>
+Package dependencies are contained in the environment.yml file \
+Use prefix: /Users/username/anaconda3/envs/env-name \
 Manually installed packages were:
 - cebra
 - pytorch
