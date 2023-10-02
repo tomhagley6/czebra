@@ -4,7 +4,23 @@
 
 This is the one that had perfect (seemingly not trial time) predictions disc + cont.
 Check this.
-archived_models/230911/f1_221103_spot-label_second-half-stims_deconv_discrete-and-cont_control-seed_10000rois_2000iters_128hidden_0.001L2_0.8train
+f1_221103_spot-label_second-half-stims_deconv_discrete-and-cont_control-seed_10000rois_2000iters_128hidden_0.001L2_0.8train
 - version 1 is from last week, and successive versions are from this week.
 - 2 and 3 are identical input showing identical results.
 - 4 is identical input, but without using the continuous variable in training.
+- v5 is identical imput, but without using discrete variable in training (continuous only) (seems to fail to classify)
+
+f1_221103_spot-label_second-half-stims_time-since-last_tectal_10000rois_2000iters_128hidden_0.001L2_0.8train:
+- version 1 is with ALL data, did some analysis on smoothing/averaging predictions
+- v2 is without any 0 data at the beginning. This version includes "long form" stimulus-triggered average, which lasts for 
+- 300 seconds or 1500 points (a little longer than then average ISI)
+- all of the above used a uniform kernel convolution for smoothing: size 50 for whole-data, size 10 for stim triggered avg.
+    PARTIAL FIT BELOW 
+- v3 had semantic errors - ignore this
+- v4 and v5 are the correct versions for predict-on-train and predict-on-test partial fits respectively. Each were separated into steps 
+  of 100 iterations, up to 2000 iterations. Separate models were run for predict-on-train and predict-on-test (same random
+  seed). Models were not saved because of a bug in cebra.CEBRA.partial_fit().
+
+f1_221103_spottime_tectal_10000rois_2000iters_128hidden_0.001L2_0.8train:
+- CEBRA-Time model where I'm predicting time in experiment using either the training embedding or the test embedding
+- This will need to be re-done because I'm extrapolating time in this version
