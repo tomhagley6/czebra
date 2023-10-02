@@ -1,0 +1,5 @@
+Strict f1-score:  0.040
+Lenient f1-score: 0.400
+Strict multiclass f1-score (stim-only avg): 0.040
+Strict multiclass f1-score (avg all): 0.357
+Lenient multiclass f1-score (avg all): 0.747

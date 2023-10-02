@@ -1,0 +1,42 @@
+230828:
+ - Default model values:
+(all parameters are CEBRA defaults unless specified)
+    model_architecture='offset10-model',
+    device='cuda_if_available',
+    conditional='time_delta',
+    temperature_mode='auto',
+    min_temperature=0.1,
+    time_offsets=10,
+    max_iterations=ITERS,
+    max_adapt_iterations=500,
+    batch_size=1024,
+    learning_rate=1e-4,
+    output_dimension=3,
+    verbose=True,
+    num_hidden_units=128,
+    hybrid=False,
+    optimizer_kwargs=(('betas', (0.9, 0.999)), ('eps', 1e-08), ('weight_decay', 1e-4), ('amsgrad', False))
+
+- Other parameters
+    TIMESTEPS = None            # set as None to use all timepoints
+    ROIS = 10000
+    ITERS = 2000
+    STIMS = ['left_spot', 'right_spot']
+    TRAINING_TEST_SPLIT = 0.7
+
+
+- comments:
+As labelled, data is now using deconvolved calcium (inferred spikes), obtained by running OASIS (Friedrich et al., 2017)
+ on the df/f data (thresholded variant with a first-order autoregressive model (AR(1)) 
+ and an automatically-estimated transient decay time constant for each ROI.)
+
+ From this week, also saving ROI indexes for neural data subsets. 
+
+ f1_221103_spot-label_second-half-stims_deconv_10000rois_2000iters_128hidden_0.001L2_0.8train:
+ This is deconvolved, second_half_stim, and additionally had predict-on-train run. New f1-scoring
+
+ f1_221103_spot-label_second-half-stims_deconv_tectal_10000rois_2000iters_128hidden_0.001L2_0.8train:
+ This is as above but with ONLY tectal neurons (majority, a random 10000)
+
+ f1_221103_time_second-half-stims_deconv_tectal_10000rois_2000iters_128hidden_0.001L2_0.8train:
+ Quick time-contrastive model with embedding labels by time 
