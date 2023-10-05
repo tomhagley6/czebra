@@ -1,0 +1,30 @@
+
+
+
+
+f1_221103_spot_time_tectal_dfof_10000rois_2000iters_128hidden_0.001L2_0.8train:
+- v1 has a coding error which led to a lot of overlaps on runs (that were 10 second long individually)
+  Only dfof was done using model v1
+- v2 changes the run length to 30 seconds and fixes this error, limiting num overlapping runs to 10
+  But, I may wish to change this back to a shorter duration run with more allowed overlaps (as this will
+  have almost the same effect, but with less magnitude. Try 20 seconds and max 7 overlaps)
+
+f1_221103_spot-label_second-half-stims_deconv_discrete-and-cont_control-seed_10000rois_2000iters_128hidden_0.001L2_0.8train:
+- v1 is a recreation of last week's cont-and-disc model, but with a different random seed, demonstrating the same effect
+- look at perturbing this to investigate what is causing the good classification. First I can try combining the cont varaibles,
+  and then logging the samples that are chosen to compare between disc-only and cont-and-disc
+
+f1_221103_spot-label_second-half-stims_leaky-integrator_tectal_10000rois_2000iters_128hidden_0.001L2_0.8train:
+- v1 had a long decay constant (0.001)
+- v1_5 should be a perfect repeat of v2 (although looks quite different...)
+- v2 has order of magntiude shorter decay constant (0.01)
+- models above had 2000 training iters, models below had 500 training iters
+- v3 is the same but doesn't cut time until the 2nd stimulus from the beginning
+- v4 uses the second half of stims as the trigger
+- v5 repeats the above but uses the second-half-stims already present in my function
+- v6 cleans up the code a bit and starts a nicer folder/figure structure, but otherwise tries 
+  to recreate v5
+- v7 makes no changes other than having the convolved signal start at 100 instead of 1 (easier stats)
+- v8 repeats the 1e-3 decay constant for easier comparison
+- v9 is a (1e-2)/5 decay constant (this is actually 0.002), not a middle ground. That is next
+- v10 is a middle ground of v8 and v7 (1e-2)/2, or 0.005
