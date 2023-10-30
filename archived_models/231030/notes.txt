@@ -1,0 +1,38 @@
+
+parameters for this set of models, unless stated differently:
+  ### define model ###
+
+  parameters = {'conditional':SAMPLING_TYPE,
+                'max_iterations':ITERS,
+                'batch_size':128,
+                'num_hidden_units':128,
+                'weight_decay':1e-03,
+                'rois':ROIS,
+              }
+
+  cebra_stim_on_model = cebra.CEBRA(
+      model_architecture='offset10-model',
+      device='cuda_if_available',
+      conditional=parameters['conditional'],
+      temperature_mode='auto',
+      min_temperature=0.1,
+      time_offsets=10,
+      max_iterations= parameters['max_iterations'] if not PARTIAL_FIT else PARTIAL_FIT,
+      max_adapt_iterations=500,
+      batch_size=parameters['batch_size'],
+      learning_rate=1e-5,
+      output_dimension=3,
+      verbose=True,
+      num_hidden_units=parameters['num_hidden_units'],
+      hybrid=False,
+      optimizer_kwargs=(('betas', (0.9, 0.999)), ('eps', 1e-08), ('weight_decay', parameters['weight_decay']), ('amsgrad', False))
+      )
+
+f1_221103_spot-label_second-half-stims_leaky-integrator_tectal_10000rois_2000iters_128hidden_0.001L2_0.8train:
+ - v1: repeat of previous week's leaky integrator model. Only change is reduced batch size to value stated above, and 2000 iterations
+   instead of 500. Results seem very similar
+ - v2: same as v1 but using raw calcium instead of deconvolved. Predictions look significantly better, but this is probably expected
+   as there is stronger association between timepoints with the long calcium decay signal  
+ - v3: removes all datapoints that coincide with stimulus presentation, and uses the first frame post-stimulus as the convolution
+   trigger. Results look vaguely similar. It doesn't seem to really track with time, just predict a high value in the the few seconds
+   after a stimulus. This is maybe not all that impressive, because the high neural activity tends to stay for this time too. 
