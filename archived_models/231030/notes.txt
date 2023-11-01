@@ -35,4 +35,11 @@ f1_221103_spot-label_second-half-stims_leaky-integrator_tectal_10000rois_2000ite
    as there is stronger association between timepoints with the long calcium decay signal  
  - v3: removes all datapoints that coincide with stimulus presentation, and uses the first frame post-stimulus as the convolution
    trigger. Results look vaguely similar. It doesn't seem to really track with time, just predict a high value in the the few seconds
-   after a stimulus. This is maybe not all that impressive, because the high neural activity tends to stay for this time too. 
+   after a stimulus. This is maybe not all that impressive, because the high neural activity tends to stay for this time too. (it's raw calc)
+-  v4: Same as above (with stimulus cut), but this time for convolved calcium, like I was originally doing
+
+f1_221103_spot-label_second-half-stims_leaky-integrator_tectal_double-predictions_10000rois_2000iters_128hidden_0.001L2_0.8train:
+- The only change here is running predictions on both left and right spot stimuli, and then combining them for the stimulus-triggered
+  average, so that we average 12 presentations instead of 6. 
+- v1: dfof
+- v2: deconv
