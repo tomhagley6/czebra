@@ -36,10 +36,42 @@ f1_221103_spot-label_second-half-stims_leaky-integrator_tectal_10000rois_2000ite
  - v3: removes all datapoints that coincide with stimulus presentation, and uses the first frame post-stimulus as the convolution
    trigger. Results look vaguely similar. It doesn't seem to really track with time, just predict a high value in the the few seconds
    after a stimulus. This is maybe not all that impressive, because the high neural activity tends to stay for this time too. (it's raw calc)
--  v4: Same as above (with stimulus cut), but this time for convolved calcium, like I was originally doing
+-  v4: Same as above (with stimulus cut), but this time for deconvolved calcium, like I was originally doing
 
 f1_221103_spot-label_second-half-stims_leaky-integrator_tectal_double-predictions_10000rois_2000iters_128hidden_0.001L2_0.8train:
 - The only change here is running predictions on both left and right spot stimuli, and then combining them for the stimulus-triggered
   average, so that we average 12 presentations instead of 6. 
 - v1: dfof
 - v2: deconv
+The above is the final version of my leaky integrator, so I will also run this (for dfof and deconv) at 1000 and 500 iterations to track 
+fitting. Later models are in separate folders based on iteration number
+f1_221103_spot-label_second-half-stims_leaky-integrator_tectal_double-predictions_10000rois_1000iters_128hidden_0.001L2_0.8train:
+- v3: dfof 1000
+- v4: dfof 500
+- v5: deconv 1000
+- v6: deconv 500
+
+From the above, seems like the deconvolved signal gives almost nothing (regardless of iters), and the dfof signal looks a lot better, and much better at 
+low iters than high. Could maybe try changing time offsets to look at the deconv signal, but definitely try a slower learning rate for the dfof.
+
+f1_221103_spot-label_second-half-stims_leaky-integrator_tectal_double-predictions_learning_rate_change_10000rois_500iters_128hidden_0.001L2_0.8train:
+All of the below are for dfof
+- v1: 500 iterations, 1e-5 learning rate
+- v2: 2000 iterations, 1e-5 learning rate
+- v3: 500 itetations, 1e-6 learning rate
+- v4: 2000 iterations, 1e-6 learning rate
+- v5: 4000 iterations, 1e-6 learning rate
+
+From these, 1e-6 looks the best. Seems to finish converging around 3000 iterations, doesn't display any overfitting, and 
+looks good on training and test data
+
+Tried one deconvolved at 1e-6 alpha, but probably best to just say that deconvolved wasn't giving me much signal, and so
+I only went further with dfof. 
+- v6: 4000 iterations, 1e-6 learning rate, deconvolved calcium (There is a small peak though!)
+- v7: 2000 iterations, 1e-6 learning rate, deconvolved calcium 
+
+f1_221103_spot-label_second-half-stims_leaky-integrator_tectal_double-predictions_learning_rate_change_diff-seed_10000rois_4000iters_128hidden_0.001L2_0.8train:
+- v1: Seed 17 instead of 0 for the same model as the above v5. Slight change in the average curve, and <1 point difference in 
+  the RMSE. Anecdotally little variation, but could do more simulations if I have time
+
+
