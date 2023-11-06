@@ -20,4 +20,4 @@ To save a model, notebooks expect a directory to save the model and figures to (
 Models can be loaded from this archived model folder. You will need to input the speicific path of the model into cebra.load(), 
 or run the notebook with global LOAD_MODEL = True, using the correct labels and parameters in the notebook. 
 
-The most recent leaky integrator model is found in test_notebooks > 231030 > decode_stimulus_laterality_tectal_leaky-integrator_NEWEST
+The most recent leaky integrator model is found in: test_notebooks > 231030 > decode_stimulus_laterality_tectal_leaky-integrator_NEWEST
