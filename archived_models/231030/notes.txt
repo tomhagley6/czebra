@@ -69,6 +69,7 @@ Tried one deconvolved at 1e-6 alpha, but probably best to just say that deconvol
 I only went further with dfof. 
 - v6: 4000 iterations, 1e-6 learning rate, deconvolved calcium (There is a small peak though!)
 - v7: 2000 iterations, 1e-6 learning rate, deconvolved calcium 
+- v8: 500 iterations, 1e-6 learning rate, deconvolved calcium
 
 f1_221103_spot-label_second-half-stims_leaky-integrator_tectal_double-predictions_learning_rate_change_diff-seed_10000rois_4000iters_128hidden_0.001L2_0.8train:
 - v1: Seed 17 instead of 0 for the same model as the above v5. Slight change in the average curve, and <1 point difference in 
