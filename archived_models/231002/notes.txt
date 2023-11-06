@@ -1,0 +1,88 @@
+
+parameters for this set of models, unless stated differently:
+  ### define model ###
+
+  parameters = {'conditional':SAMPLING_TYPE,
+                'max_iterations':ITERS,
+                'batch_size':128,
+                'num_hidden_units':128,
+                'weight_decay':1e-03,
+                'rois':ROIS,
+              }
+
+  cebra_stim_on_model = cebra.CEBRA(
+      model_architecture='offset10-model',
+      device='cuda_if_available',
+      conditional=parameters['conditional'],
+      temperature_mode='auto',
+      min_temperature=0.1,
+      time_offsets=10,
+      max_iterations= parameters['max_iterations'] if not PARTIAL_FIT else PARTIAL_FIT,
+      max_adapt_iterations=500,
+      batch_size=parameters['batch_size'],
+      learning_rate=1e-5,
+      output_dimension=3,
+      verbose=True,
+      num_hidden_units=parameters['num_hidden_units'],
+      hybrid=False,
+      optimizer_kwargs=(('betas', (0.9, 0.999)), ('eps', 1e-08), ('weight_decay', parameters['weight_decay']), ('amsgrad', False))
+      )
+
+f1_221103_spot_time_tectal_dfof_10000rois_2000iters_128hidden_0.001L2_0.8train:
+- v1 has a coding error which led to a lot of overlaps on runs (that were 10 second long individually)
+  Only dfof was done using model v1
+- v2 changes the run length to 30 seconds and fixes this error, limiting num overlapping runs to 7
+  But, I may wish to change this back to a shorter duration run with more allowed overlaps (as this will
+  have almost the same effect, but with less magnitude. Try 20 seconds and max 7 overlaps)
+    - another issue on v2 is that I xasn't using the full test set
+- v3 uses 20 second runs, max 7 overlaps, and uses the full test set. This is the final version
+
+f1_221103_spot_time_tectal_deconv_10000rois_2000iters_128hidden_0.001L2_0.8train:
+- identical to the above folder's v3 model, but uses deconv instead of dfof
+
+
+f1_221103_spot-label_second-half-stims_deconv_discrete-and-cont_control-seed_10000rois_2000iters_128hidden_0.001L2_0.8train:
+- v1 is a recreation of last week's cont-and-disc model, but with a different random seed, demonstrating the same effect
+- look at perturbing this to investigate what is causing the good classification. First I can try combining the cont varaibles,
+  and then logging the samples that are chosen to compare between disc-only and cont-and-disc
+- v2 is identical, besides using a single stimulus-agnostic array for the continuous variable
+
+f1_221103_spot-label_second-half-stims_leaky-integrator_tectal_10000rois_2000iters_128hidden_0.001L2_0.8train:
+- v1 had a long decay constant (0.001)
+- v1_5 should be a perfect repeat of v2 (although looks quite different...)
+- v2 has order of magntiude shorter decay constant (0.01)
+- models above had 2000 training iters, models below had 500 training iters
+- v3 is the same but doesn't cut time until the 2nd stimulus from the beginning
+- v4 uses the second half of stims as the trigger
+- v5 repeats the above but uses the second-half-stims already present in my function
+- v6 cleans up the code a bit and starts a nicer folder/figure structure, but otherwise tries 
+  to recreate v5
+- v7 makes no changes other than having the convolved signal start at 100 instead of 1 (easier stats)
+- v8 repeats the 1e-3 decay constant for easier comparison
+- v9 is a (1e-2)/5 decay constant (this is actually 0.002), not a middle ground. That is next
+- v10 is a middle ground of v8 and v7 (1e-2)/2, or 0.005
+
+f1_221103_spot-label_second-half-stims_leaky-integrator_tectal_grid-search_10000rois_500iters_128hidden_0.001L2_0.8train:
+- This is my first gridsearch. Looking at params: learning rate, output dims, batch size, num hidden units,
+  and time_offsets. I should refine searches for each of these, and also look at L2 regularisation and some others
+- This directory specifically is for the best model output by the first gridsearch, which was: 
+    - learning rate 1e-4
+    - num hidden units 128
+    - batch size 128
+    - time offsets 5
+    - output dims 3
+- note: batch size switched from 1025, timeoffsets from 10
+- The rest of the models for this gridsearch can be found in archived_models/231002/leaky-integrator_grid-search_models
+- decoding and embedding results don't seem much improved at all, but I should run best model with 2000 iters
+
+f1_221103_spot-label_second-half-stims_leaky-integrator_tectal_grid-search-best-model_10000rois_2000iters_128hidden_0.001L2_0.8train
+- Replication of the above model but with 2000 iterations
+- seems a lot worse even than the 500... Is something different, or is this just overfitting?
+- the gridsearch was done using 500 iters only, so maybe there is more overfitting here with the 1e-4 learning rate
+
+f1_221103_spot-label_second-half-stims_leaky-integrator_tectal_grid-search-best-model_slow-learning_10000rois_2000iters_128hidden_0.001L2_0.8train
+- v1 is a repeat of the above with a slower learning rate, 1e-06
+- v2 uses 1e-05 learning rate
+- These are in contrast to the best grid search parameters which (unsurprisingly) used the fastest 
+  learning rate of 1e-04, but didn't perform as well on test at 2000 iters as they did in the search at
+  500 iters
